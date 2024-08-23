@@ -1,0 +1,23 @@
+a:4:{s:4:"hash";s:0:"";s:5:"mtime";i:1724398724;s:6:"expire";i:1724485124;s:4:"tags";s:47:"fce_BLOCK_HTML,fce_CAT_P_704,fce_CAT_P,fce_MAGE";}
+<div class="price-box price-final_price" data-role="priceBox" data-product-id="704" data-price-box="product-id-704">    <span class="normal-price">
+
+
+<span class="price-container price-final_price&#x20;tax&#x20;weee"
+        >
+        <span  id="price-including-tax-old-price-704-widget-product-grid"        data-label="Incl.&#x20;Tax"        data-price-amount="22"
+        data-price-type="finalPrice"
+        class="price-wrapper price-including-tax"
+    ><span class="price">$22.00</span></span>
+            
+
+    <span id="price-excluding-tax-old-price-704-widget-product-grid"
+          data-label="Excl.&#x20;Tax"
+          data-price-amount="22"
+          data-price-type="basePrice"
+          class="price-wrapper price-excluding-tax">
+        <span class="price">$22.00</span></span>
+        </span>
+</span>
+
+
+</div>

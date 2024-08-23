@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="MageMastery\PageListWidget\Block\Widget\PageList" id="mage_mastery_page_list_widget">
+        <label>CMS Page List</label>
+
+        <parameters>
+            <parameter name="title" xsi:type="text" required="false" visible="true" sort_order="10">
+                <label>Title</label>
+            </parameter>
+            <parameter name="displaymode" xsi:type="select" required="true" visible="true" sort_order="20">
+                <label>Display mode</label>
+                <options>
+                    <option name="allpages" value="allPages" selected="true">
+                        <label>All pages</label>
+                    </option>
+                    <option name="specificpages" value="specificPages">
+                        <label>Specific pages</label>
+                    </option>
+                </options>
+            </parameter>
+            
+            <parameter name="selectedpages" xsi:type="multiselect" required="true" visible="true" sort_order="30">
+                <label>Selected Pages</label>
+                <depends>
+                    <parameter name="displaymode" value="specificPages" />
+                </depends>
+                <options>
+                    <option name="404Page" value="404 Not Found">
+                        <label>404 Not Found</label>
+                    </option>
+                    <option name="home" value="Home Page">
+                        <label>Home page</label>
+                    </option>
+                    <option name="enableCookies" value="Enable Cookies">
+                        <label>Enable Cookies</label>
+                    </option>
+                    <option name="privacy" value="Privacy and Cookie Privacy">
+                        <label>Privacy and Cookie Privacy</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

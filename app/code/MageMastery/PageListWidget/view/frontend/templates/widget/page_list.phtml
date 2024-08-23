@@ -1,0 +1,27 @@
+<?php
+/** @var \Magento\Framework\View\TemplateEngineInterface $this */
+/** @var \MageMastery\PageListWidget\Block\Widget\PageList $block */
+/** @var \Magento\Csp\Api\InlineUtilInterface $csp */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
+?>
+<h3><?= $escaper->escapeHtml($block->getData('title')) ?></h3>
+<ul>
+    <?php
+    // Retrieve the value of selected pages
+    $selectedPagesValue = $block->getData('selectedpages');
+    $selectedPagesArray = [];
+
+    //Convert the selected pages into an array
+    if (is_string($selectedPagesValue)) {
+        $selectedPagesArray = explode(',', $selectedPagesValue);
+    } elseif (is_array($selectedPagesValue)) {
+        $selectedPagesArray = $selectedPagesValue;
+    }
+
+    // Display the selected pages
+    foreach ($selectedPagesArray as $page) {
+        echo '<li><a href="#">' . $escaper->escapeHtml(trim($page)) . '</a></li>';
+    }
+    ?>
+</ul>

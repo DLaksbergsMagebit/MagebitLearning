@@ -1,0 +1,12 @@
+<?php
+/** @var \MageMastery\FirstLayout\ViewModel\ProductViewModel $viewModel */
+$viewModel = $block->getData('view_model');
+$product = $viewModel->getProductBySku('zivs');
+?>
+
+<?php if ($product): ?>
+    <h1><?= $escaper->escapeHtml($product->getName()); ?></h1>
+    <p><?= $escaper->escapeHtml($product->getSku()); ?></p>
+<?php else: ?>
+    <p>Product not found.</p>
+<?php endif; ?>
