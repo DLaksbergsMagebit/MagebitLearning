@@ -37,7 +37,7 @@ $formattedPrice = $pricingHelper->currency($productPrice, true, false);
 
 <!-- Add to Cart Button -->
 <div class="add-to-cart">
-    <button type="button" class="action primary" onclick="location.href='<?= $block->escapeUrl($block->getAddToCartUrl($product)) ?>'">
+    <button type="button" class="action primary" onclick="location.href='<?= $block->getAddToCartUrl($product) ?>'">
         <?= __('Add to Cart') ?>
     </button>
 </div>
@@ -48,11 +48,11 @@ $formattedPrice = $pricingHelper->currency($productPrice, true, false);
     <hr class="upsell-hr">
     <ul class="products-grid-upsell">
         <li class="product-item-upsell">
-            <a href="<?= $block->escapeUrl('http://magento.local/impulse-duffle.html') ?>">
+            <a href="<?= 'http://magento.local/impulse-duffle.html' ?>">
                 <img src="<?= $block->escapeUrl('http://magento.local/media/catalog/product/cache/702eb464a701cb789c1e044a515caee4/i/m/images.jpeg') ?>" alt="<?= $block->escapeHtml('Impulse Duffle') ?>" class="product-image-upsell">
             </a>
             <div class="product-details-upsell">
-                <h3><?= $block->escapeHtml('Impulse Duffle') ?></h3>
+                <h3><?= 'Impulse Duffle' ?></h3>
                 <div class="product-reviews-upsell">
                     <div class="rating-upsell">
                         <span class="stars-upsell">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -62,7 +62,7 @@ $formattedPrice = $pricingHelper->currency($productPrice, true, false);
                 <p class="product-price-upsell"><?= $formattedPrice ?></p>
             </div>
             <div class="view-product-upsell">
-                <a href="<?= $block->escapeUrl('http://magento.local/impulse-duffle.html') ?>" class="action-upsell">
+                <a href="<?= 'http://magento.local/impulse-duffle.html' ?>" class="action-upsell">
                     <?= __('View Product') ?>
                 </a>
             </div>

@@ -20,8 +20,8 @@ $displayAttributes = ['dimensions', 'color', 'material'];
             <?php $attribute = $attributes[$code]; ?>
             <div class="detail-item">
                 <li>
-                    <strong><?= $block->escapeHtml($attribute->getStoreLabel()) ?>:</strong>
-                    <?= $block->escapeHtml($attribute->getFrontend()->getValue($product)) ?>
+                    <strong><?= $attribute->getStoreLabel() ?>:</strong>
+                    <?= $attribute->getFrontend()->getValue($product) ?>
                 </li>
             </div>
         <?php endif; ?>

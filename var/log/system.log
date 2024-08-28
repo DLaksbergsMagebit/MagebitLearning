@@ -1,0 +1,53 @@
+[2024-08-28T10:00:11.863988+00:00] main.INFO: Broken reference: the 'catalog.compare.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:00:11.864255+00:00] main.INFO: Broken reference: the 'sale.reorder.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:00:11.864393+00:00] main.INFO: Broken reference: the 'wishlist_sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:00:12.263825+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:00:12.264012+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:00:12.867136+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:00:12.867366+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:01:23.024153+00:00] main.INFO: Broken reference: the 'catalog.compare.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:01:23.024321+00:00] main.INFO: Broken reference: the 'sale.reorder.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:01:23.024437+00:00] main.INFO: Broken reference: the 'wishlist_sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:01:23.338064+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:01:23.338203+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:01:23.902716+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:01:23.902925+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:02:01.873073+00:00] main.INFO: Broken reference: the 'catalog.compare.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:02:01.873225+00:00] main.INFO: Broken reference: the 'sale.reorder.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:02:01.873333+00:00] main.INFO: Broken reference: the 'wishlist_sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:02:02.144956+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:02:02.145114+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:02:02.609711+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:02:02.609926+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:02:17.545199+00:00] main.INFO: Broken reference: the 'catalog.compare.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:02:17.545348+00:00] main.INFO: Broken reference: the 'sale.reorder.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:02:17.545446+00:00] main.INFO: Broken reference: the 'wishlist_sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:02:17.921437+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:02:17.921686+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:02:18.272067+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:02:18.272262+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:03:25.704223+00:00] main.ERROR: NOTE: Manual static content deployment is not required in "default" and "developer" modes.
+In "default" and "developer" modes static contents are being deployed automatically on demand.
+If you still want to deploy in these modes, use -f option: 'bin/magento setup:static-content:deploy -f'
+#0 /var/www/magento/public/setup/src/Magento/Setup/Console/Command/DeployStaticContentCommand.php(112): Magento\Setup\Console\Command\DeployStaticContentCommand->checkAppMode()
+#1 /var/www/magento/public/vendor/symfony/console/Command/Command.php(326): Magento\Setup\Console\Command\DeployStaticContentCommand->execute()
+#2 /var/www/magento/public/vendor/symfony/console/Application.php(1078): Symfony\Component\Console\Command\Command->run()
+#3 /var/www/magento/public/vendor/symfony/console/Application.php(324): Symfony\Component\Console\Application->doRunCommand()
+#4 /var/www/magento/public/vendor/magento/framework/Console/Cli.php(118): Symfony\Component\Console\Application->doRun()
+#5 /var/www/magento/public/vendor/symfony/console/Application.php(175): Magento\Framework\Console\Cli->doRun()
+#6 /var/www/magento/public/bin/magento(23): Symfony\Component\Console\Application->run()
+#7 {main} [] []
+[2024-08-28T10:05:01.408080+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 100000; Allocated memory size: 50000000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:01.451929+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 100000; Allocated memory size: 50000000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:01.499966+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 100000; Allocated memory size: 50000000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:01.768287+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 100000; Allocated memory size: 50000000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:01.825733+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 100000; Allocated memory size: 50000000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:01.879525+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 100000; Allocated memory size: 50000000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:06.634682+00:00] main.WARNING: Memory size allocated for the temporary table is more than 20% of innodb_buffer_pool_size. Please update innodb_buffer_pool_size or decrease batch size value (which decreases memory usages for the temporary table). Current batch size: 3334; Allocated memory size: 50010000 bytes; InnoDB buffer pool size: 134217728 bytes. [] []
+[2024-08-28T10:05:19.726391+00:00] main.INFO: Broken reference: the 'catalog.compare.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:05:19.726549+00:00] main.INFO: Broken reference: the 'sale.reorder.sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:05:19.726673+00:00] main.INFO: Broken reference: the 'wishlist_sidebar' element cannot be added as child to 'sidebar.additional', because the latter doesn't exist [] []
+[2024-08-28T10:05:23.361255+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:05:23.361577+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/underscore-umd.js.map' [] []
+[2024-08-28T10:05:26.635116+00:00] main.ERROR: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []
+[2024-08-28T10:05:26.635648+00:00] main.CRITICAL: Unable to resolve the source file for 'frontend/Magebit/learning/en_US/vimeo/player.js.map' [] []

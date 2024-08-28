@@ -11,9 +11,9 @@ if ($_relatedProducts = $block->getItems()): ?>
         <ul class="products-grid">
             <?php foreach ($_relatedProducts as $_product): ?>
                 <li class="product-item">
-                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
-                        <img src="<?= $block->escapeUrl($block->getImage($_product, 'product_page_image_small')->getImageUrl()) ?>" alt="<?= $block->escapeHtml($_product->getName()) ?>" />
-                        <h3><?= $block->escapeHtml($_product->getName()) ?></h3>
+                    <a href="<?= $_product->getProductUrl() ?>">
+                        <img src="<?= $block->getImage($_product, 'product_page_image_small')->getImageUrl() ?>" alt="<?= $_product->getName() ?>" />
+                        <h3><?= $_product->getName() ?></h3>
                     </a>
                     <div class="product-reviews">
                         <?= $block->getReviewsSummaryHtml($_product, 'short', true) ?>
@@ -22,7 +22,7 @@ if ($_relatedProducts = $block->getItems()): ?>
                         <?= $block->getProductPrice($_product) ?>
                     </p>
                     <div class="add-to-cart-related">
-                        <button type="button" class="action-related" onclick="location.href='<?= $block->escapeUrl($block->getAddToCartUrl($_product)) ?>'">
+                        <button type="button" class="action-related" onclick="location.href='<?= $block->getAddToCartUrl($_product) ?>'">
                             <?= __('Add to Cart') ?>
                         </button>
                     </div>
