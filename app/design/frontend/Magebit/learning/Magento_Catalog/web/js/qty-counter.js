@@ -28,7 +28,7 @@ define([
             }
         },
 
-        // Optional: Validate input to ensure it's within the allowed range
+        // Validate input to ensure it's within the allowed range
         validateQty: function() {
             let updateQty = parseInt(this.qty(), 10);
 
