@@ -1,0 +1,35 @@
+<?php
+/**
+ * Template for displaying selected product attributes and short description.
+ * @var \Magento\Catalog\Block\Product\View\Attributes $block
+ * @var \Magento\Catalog\Model\Product $product
+ */
+
+$product = $block->getProduct();
+$attributes = $product->getAttributes();
+
+/** @var \Magento\Catalog\Helper\Output $catalogHelper */
+$catalogHelper = $this->helper('Magento\Catalog\Helper\Output');
+
+$displayAttributes = ['dimensions', 'color', 'material'];
+?>
+
+<div class="product-details">
+    <?php foreach ($displayAttributes as $code): ?>
+        <?php if (isset($attributes[$code])): ?>
+            <?php $attribute = $attributes[$code]; ?>
+            <div class="detail-item">
+                <li>
+                    <strong><?= $block->escapeHtml($attribute->getStoreLabel()) ?>:</strong>
+                    <?= $block->escapeHtml($attribute->getFrontend()->getValue($product)) ?>
+                </li>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
+    <?php if ($product->getData('short_description')): ?>
+        <div class="short_description">
+            <p><?= $catalogHelper->productAttribute($product, $product->getData('short_description'), 'short_description') ?></p>
+        </div>
+    <?php endif; ?>
+</div>

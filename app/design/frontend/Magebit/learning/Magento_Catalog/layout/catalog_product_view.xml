@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <move element="product.info.main" destination="content" before="-"/>
+
+        <!-- Remove unwanted blocks from the product page -->
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceBlock name="view.addto.wishlist" remove="true" />
+        <referenceBlock name="product.info.detailed" remove="true" />
+
+        <!-- Add a custom block after the price block within product info -->
+        <referenceContainer name="product.info.main">
+            <block class="Magento\Catalog\Block\Product\View\Attributes"
+                   name="custom.product.details"
+                   template="Magento_Catalog::product/view/attributes.phtml"
+                   after="product.info.price"/>
+        </referenceContainer>
+
+        <!-- Add related products block to the content area -->
+        <referenceContainer name="content">
+            <block class="Magento\Catalog\Block\Product\ProductList\Related"
+                   name="catalog.product.related"
+                   template="Magento_Catalog::product/view/relatedproducts.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

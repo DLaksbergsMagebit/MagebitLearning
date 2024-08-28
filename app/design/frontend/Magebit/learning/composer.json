@@ -1,0 +1,22 @@
+{
+    "name": "magebit/learning",
+    "description": "Magebit Learning Theme for Magento 2",
+    "type": "magento2-theme",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~7.4.0 || ~8.0.0",
+        "magento/framework": "*",
+        "magento/theme-frontend-blank": "*"
+    },
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ]
+    }
+}

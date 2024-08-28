@@ -1,0 +1,33 @@
+<?php
+/**
+ * Template for displaying related products in a grid format.
+ * @var \Magento\Catalog\Block\Product\View\Attributes $block
+ */
+
+if ($_relatedProducts = $block->getItems()): ?>
+    <div class="related-products">
+        <h2><?= __('Related Products') ?></h2>
+        <hr>
+        <ul class="products-grid">
+            <?php foreach ($_relatedProducts as $_product): ?>
+                <li class="product-item">
+                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                        <img src="<?= $block->escapeUrl($block->getImage($_product, 'product_page_image_small')->getImageUrl()) ?>" alt="<?= $block->escapeHtml($_product->getName()) ?>" />
+                        <h3><?= $block->escapeHtml($_product->getName()) ?></h3>
+                    </a>
+                    <div class="product-reviews">
+                        <?= $block->getReviewsSummaryHtml($_product, 'short', true) ?>
+                    </div>
+                    <p class="product-price">
+                        <?= $block->getProductPrice($_product) ?>
+                    </p>
+                    <div class="add-to-cart-related">
+                        <button type="button" class="action-related" onclick="location.href='<?= $block->escapeUrl($block->getAddToCartUrl($_product)) ?>'">
+                            <?= __('Add to Cart') ?>
+                        </button>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

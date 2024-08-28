@@ -1,0 +1,86 @@
+<?php
+/**
+ * Template for displaying product stock information, pricing, quantity selector, and upsell products.
+ * @var \Magento\Catalog\Block\Product\View $block
+ */
+$product = $block->getProduct();
+$stockItem = $product->getExtensionAttributes()->getStockItem();
+$qty = $stockItem ? $stockItem->getQty() : 0;
+$isInStock = $stockItem ? $stockItem->getIsInStock() : false;
+$productPrice = $product->getFinalPrice();
+/** @var \Magento\Framework\Pricing\Helper\Data $pricingHelper */
+$pricingHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Framework\Pricing\Helper\Data::class);
+$formattedPrice = $pricingHelper->currency($productPrice, true, false);
+?>
+
+<!-- Quantity Selector and Stock Information -->
+<div data-bind="scope: 'qtyCounter'">
+    <div class="qty-container">
+        <div class="qty-counter">
+            <button type="button" class="btn-decrease" data-bind="click: decrease">--</button>
+            <input type="text" data-bind="value: qty, valueUpdate: 'input', event: { change: validateQty }" />
+            <button type="button" class="btn-increase" data-bind="click: increase">+</button>
+        </div>
+        <div class="stock-info">
+            <span class="stock-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="8.005" viewBox="0 0 11 8.005"><defs><style>.a{fill:#575757;}</style></defs><g transform="translate(-32.369 -34.185)"><path class="a" d="M43.324,35.378,36.5,42.145a.156.156,0,0,1-.218,0L32.413,38.3a.152.152,0,0,1,0-.215l.941-.933a.155.155,0,0,1,.217,0l2.823,2.8,5.771-5.725a.154.154,0,0,1,.218,0l.941.933A.152.152,0,0,1,43.324,35.378Z" transform="translate(0 0)"/></g></svg>
+            </span>
+            <p>
+                <strong class="in-stock-text"><?= $isInStock ? __('IN STOCK') : __('OUT OF STOCK') ?></strong>
+                <?php if ($isInStock && $qty > 0): ?>
+                    <span><?= __('%1 items available', $qty) ?></span>
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Add to Cart Button -->
+<div class="add-to-cart">
+    <button type="button" class="action primary" onclick="location.href='<?= $block->escapeUrl($block->getAddToCartUrl($product)) ?>'">
+        <?= __('Add to Cart') ?>
+    </button>
+</div>
+
+<!-- Upsell Products Section -->
+<div class="upsell-products">
+    <h2 class="upsell-title"><?= __('We found other products you may like!') ?></h2>
+    <hr class="upsell-hr">
+    <ul class="products-grid-upsell">
+        <li class="product-item-upsell">
+            <a href="<?= $block->escapeUrl('http://magento.local/impulse-duffle.html') ?>">
+                <img src="<?= $block->escapeUrl('http://magento.local/media/catalog/product/cache/702eb464a701cb789c1e044a515caee4/i/m/images.jpeg') ?>" alt="<?= $block->escapeHtml('Impulse Duffle') ?>" class="product-image-upsell">
+            </a>
+            <div class="product-details-upsell">
+                <h3><?= $block->escapeHtml('Impulse Duffle') ?></h3>
+                <div class="product-reviews-upsell">
+                    <div class="rating-upsell">
+                        <span class="stars-upsell">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                        <span class="review-count-upsell"><?= __('5 Reviews') ?></span>
+                    </div>
+                </div>
+                <p class="product-price-upsell"><?= $formattedPrice ?></p>
+            </div>
+            <div class="view-product-upsell">
+                <a href="<?= $block->escapeUrl('http://magento.local/impulse-duffle.html') ?>" class="action-upsell">
+                    <?= __('View Product') ?>
+                </a>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- Knockout.js Component Initialization -->
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "qtyCounter": {
+                        "component": "Magento_Catalog/js/qty-counter"
+                    }
+                }
+            }
+        }
+    }
+</script>
