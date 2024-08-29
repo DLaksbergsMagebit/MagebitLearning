@@ -373,6 +373,8 @@ return [
         'Magento_WishlistAnalytics' => 1,
         'Magento_WishlistGraphQl' => 1,
         'Magento_WishlistSampleData' => 1,
+        'Learning_DataPatch' => 1,
+        'Learning_Database' => 1,
         'MageMastery_FirstLayout' => 1,
         'MageMastery_FirstModule' => 1,
         'MageMastery_FirstPage' => 1,
