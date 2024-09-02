@@ -1,35 +1,44 @@
 <?php
 /**
- * Template for displaying selected product attributes and short description.
- * @var \Magento\Catalog\Block\Product\View\Attributes $block
- * @var \Magento\Catalog\Model\Product $product
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
  */
 
-$product = $block->getProduct();
-$attributes = $product->getAttributes();
+declare(strict_types=1);
+use Magebit\Learning\Block\Product\View\Attributes;
+use Magento\Framework\Escaper;
+use Magento\Framework\Exception\LocalizedException;
 
-/** @var \Magento\Catalog\Helper\Output $catalogHelper */
-$catalogHelper = $this->helper('Magento\Catalog\Helper\Output');
-
-$displayAttributes = ['dimensions', 'color', 'material'];
+/**
+ * Template for displaying selected product attributes and short description.
+ * @var Attributes $block
+ * @var Escaper $escaper
+ */
 ?>
 
 <div class="product-details">
-    <?php foreach ($displayAttributes as $code): ?>
-        <?php if (isset($attributes[$code])): ?>
-            <?php $attribute = $attributes[$code]; ?>
+    <?php $attributes = $block->getDisplayAttributes(); ?>
+    <?php if (!empty($attributes)): ?>
+        <?php foreach ($attributes as $attribute): ?>
             <div class="detail-item">
                 <li>
-                    <strong><?= $attribute->getStoreLabel() ?>:</strong>
-                    <?= $attribute->getFrontend()->getValue($product) ?>
+                    <strong><?= $escaper->escapeHtml($attribute['label']) ?>:</strong>
+                    <?= $escaper->escapeHtml($attribute['value']) ?>
                 </li>
             </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-
-    <?php if ($product->getData('short_description')): ?>
-        <div class="short_description">
-            <p><?= $catalogHelper->productAttribute($product, $product->getData('short_description'), 'short_description') ?></p>
-        </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p><?= $escaper->escapeHtml(__('No additional product information available.')) ?></p>
     <?php endif; ?>
+
+    <?php try {
+        if ($block->getShortDescription()): ?>
+            <div class="short_description">
+                <p><?= $block->getShortDescription() ?></p>
+            </div>
+        <?php endif;
+    } catch (LocalizedException $e) {
+
+    } ?>
 </div>

@@ -1,51 +1,31 @@
 <?php
 /**
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
+ */
+
+declare(strict_types=1);
+
+/**
  * Widget template for displaying a list of CMS pages.
  *
- * @var \Magento\Framework\View\TemplateEngineInterface $this
- * @var \Magebit\PageListWidget\Block\Widget\PageList $block
- * @var \Magento\Framework\Escaper $escaper
+ * @var PageList $block
+ * @var Escaper $escaper
  */
+
+use Magebit\PageListWidget\Block\Widget\PageList;
+use Magento\Framework\Escaper;
+
 ?>
-<?php if ($block->getData('title')): ?>
     <h3><?= $escaper->escapeHtml($block->getData('title')) ?></h3>
-<?php endif; ?>
 
 <ul>
-    <?php
-    // Retrieve the display mode
-    $displayMode = $escaper->escapeHtml($block->getData('displaymode'));
-
-    if ($displayMode === 'allpages') {
-        // Display all CMS pages
-        $pages = $block->getAllPages();
-        foreach ($pages as $page) {
-            echo '<li><a href="' . $escaper->escapeUrl($block->getUrl($page->getIdentifier())) . '">' . $escaper->escapeHtml($page->getTitle()) . '</a></li>';
-        }
-    } elseif ($displayMode === 'specificpages') {
-        // Retrieve the selected pages
-        $selectedPagesValue = $block->getData('selectedpages');
-        $selectedPagesArray = [];
-
-        // Convert the selected pages into an array
-        if (is_string($selectedPagesValue)) {
-            $selectedPagesArray = explode(',', $selectedPagesValue);
-        } elseif (is_array($selectedPagesValue)) {
-            $selectedPagesArray = $selectedPagesValue;
-        }
-
-        // Display the selected pages
-        foreach ($selectedPagesArray as $urlKey) {
-            $urlKey = trim($urlKey); // Trim any extra spaces
-            if (!empty($urlKey)) {
-                $page = $block->getPageByUrlKey($escaper->escapeHtml($urlKey));
-                if ($page) {
-                    echo '<li><a href="' . $escaper->escapeUrl($block->getUrl($page->getIdentifier())) . '">' . $escaper->escapeHtml($page->getTitle()) . '</a></li>';
-                } else {
-                    echo '<li>' . $escaper->escapeHtml(__('Page with URL key "%1" not found', $urlKey)) . '</li>';
-                }
-            }
-        }
-    }
-    ?>
+    <?php foreach ($block->getPages() as $page): ?>
+        <li>
+            <a href="<?= $escaper->escapeUrl($block->getUrl($page->getIdentifier())) ?>">
+                <?= $escaper->escapeHtml($page->getTitle()) ?>
+            </a>
+        </li>
+    <?php endforeach; ?>
 </ul>

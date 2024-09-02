@@ -378,6 +378,7 @@ return [
         'MageMastery_FirstLayout' => 1,
         'MageMastery_FirstModule' => 1,
         'MageMastery_FirstPage' => 1,
+        'Magebit_Learning' => 1,
         'Magebit_PageListWidget' => 1,
         'PayPal_Braintree' => 1,
         'PayPal_BraintreeCustomerBalance' => 1,

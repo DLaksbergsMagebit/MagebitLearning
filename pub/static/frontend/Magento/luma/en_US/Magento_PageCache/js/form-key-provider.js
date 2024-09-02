@@ -1,1 +1,0 @@
-/var/www/magento/public/vendor/magento/module-page-cache/view/frontend/web/js/form-key-provider.js

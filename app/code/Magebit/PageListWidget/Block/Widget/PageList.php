@@ -1,15 +1,21 @@
 <?php
+/**
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
+ */
+
+declare(strict_types=1);
 
 namespace Magebit\PageListWidget\Block\Widget;
 
-use Magento\Cms\Model\ResourceModel\Page as PageResource;
-use Magento\Cms\Model\PageFactory;
+use Magento\Cms\Model\ResourceModel\Page\CollectionFactory as PageCollectionFactory;
+use Magento\Cms\Model\Page;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
 
 /**
  * This class is a widget block that retrieves and displays a list of CMS pages.
- * @package Magebit\PageListWidget\Block\Widget
  */
 class PageList extends Template implements BlockInterface
 {
@@ -19,77 +25,66 @@ class PageList extends Template implements BlockInterface
     protected $_template = "widget/page_list.phtml";
 
     /**
-     * @var PageResource
-     */
-    protected $pageResource;
-
-    /**
-     * @var PageFactory
-     */
-    protected $pageFactory;
-
-    /**
-     * PageList constructor.
-     * @param Template\Context $context The context of the template.
-     * @param PageResource $pageResource The resource model for CMS pages.
-     * @param PageFactory $pageFactory The factory for creating CMS page instances.
-     * @param array $data Additional data.
+     * @param Template\Context $context
+     * @param PageCollectionFactory $pageCollectionFactory
+     * @param array $data
      */
     public function __construct(
         Template\Context $context,
-        PageResource $pageResource,
-        PageFactory $pageFactory,
+        private readonly PageCollectionFactory $pageCollectionFactory,
         array $data = []
     ) {
-        $this->pageResource = $pageResource;
-        $this->pageFactory = $pageFactory;
         parent::__construct($context, $data);
     }
 
     /**
-     * Retrieve all active CMS pages.
-     * This method returns an array of all active CMS pages, ordered by title.
-     * @return \Magento\Cms\Model\Page[] Array of CMS page models.
+     * Retrieve CMS pages based on the display mode.
+     *
+     * @return Page[] Array of CMS page models.
      */
-    public function getAllPages()
+    public function getPages(): array
     {
-        $pages = [];
-        $connection = $this->pageResource->getConnection();
-        $select = $connection->select()
-            ->from($this->pageResource->getTable('cms_page'))
-            ->where('is_active = ?', 1)
-            ->order('title ASC');
+        $displayMode = $this->getData('display_mode');
 
-        $result = $connection->fetchAll($select);
-        foreach ($result as $row) {
-            $page = $this->pageFactory->create();
-            $page->setData($row);
-            $pages[] = $page;
+        if ($displayMode === 'specific_page') {
+            return $this->getSpecificPages();
         }
 
-        return $pages;
+        return $this->getAllPages();
     }
-
     /**
-     * Retrieve a CMS page by its URL key.
-     * @param string $urlKey The URL key of the CMS page.
-     * @return \Magento\Cms\Model\Page|null The CMS page model, or null if not found.
+     * Retrieve specific CMS pages.
+     *
+     * @return Page[] Array of CMS page models.
      */
-    public function getPageByUrlKey($urlKey)
+    private function getSpecificPages(): array
     {
-        $page = null;
-        $connection = $this->pageResource->getConnection();
-        $select = $connection->select()
-            ->from($this->pageResource->getTable('cms_page'))
-            ->where('identifier = ?', $urlKey)
-            ->where('is_active = ?', 1); // Ensure the page is active
+        $selectedPagesValue = $this->getData('selected_page');
 
-        $result = $connection->fetchRow($select);
-        if ($result) {
-            $page = $this->pageFactory->create();
-            $page->setData($result);
-        }
+        // Convert the selected pages into an array, trim values, and filter out empty ones
+        $selectedPagesArray = array_filter(array_map('trim', is_array($selectedPagesValue) ? $selectedPagesValue : explode(',', $selectedPagesValue)));
 
-        return $page;
+
+        $collection = $this->pageCollectionFactory->create()
+            ->addFieldToSelect(['title', 'identifier', 'content'])
+            ->addFieldToFilter('identifier', ['in' => $selectedPagesArray])
+            ->addFieldToFilter('is_active', 1)
+            ->setOrder('title', 'ASC');
+
+        return $collection->getItems();
+    }
+    /**
+     * This method returns an array of all active CMS pages
+     *
+     * @return Page[] Array of CMS page models.
+     */
+    public function getAllPages(): array
+    {
+        $collection = $this->pageCollectionFactory->create()
+            ->addFieldToSelect(['title', 'identifier', 'content'])
+            ->addFieldToFilter('is_active', 1)
+            ->setOrder('title', 'ASC');
+
+        return $collection->getItems();
     }
 }

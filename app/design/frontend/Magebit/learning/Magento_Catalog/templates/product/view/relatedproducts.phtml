@@ -1,33 +1,54 @@
 <?php
 /**
- * Template for displaying related products in a grid format.
- * @var \Magento\Catalog\Block\Product\View\Attributes $block
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
  */
 
-if ($_relatedProducts = $block->getItems()): ?>
-    <div class="related-products">
-        <h2><?= __('Related Products') ?></h2>
-        <hr>
-        <ul class="products-grid">
-            <?php foreach ($_relatedProducts as $_product): ?>
-                <li class="product-item">
-                    <a href="<?= $_product->getProductUrl() ?>">
-                        <img src="<?= $block->getImage($_product, 'product_page_image_small')->getImageUrl() ?>" alt="<?= $_product->getName() ?>" />
-                        <h3><?= $_product->getName() ?></h3>
-                    </a>
-                    <div class="product-reviews">
-                        <?= $block->getReviewsSummaryHtml($_product, 'short', true) ?>
-                    </div>
-                    <p class="product-price">
-                        <?= $block->getProductPrice($_product) ?>
-                    </p>
-                    <div class="add-to-cart-related">
-                        <button type="button" class="action-related" onclick="location.href='<?= $block->getAddToCartUrl($_product) ?>'">
-                            <?= __('Add to Cart') ?>
-                        </button>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>
+declare(strict_types=1);
+
+use Magebit\Learning\Block\Product\View\RelatedProducts;
+use Magento\Framework\Escaper;
+use Magento\Framework\Exception\NoSuchEntityException;
+
+/**
+ * Template for displaying related products in a grid format.
+ * @var RelatedProducts $block
+ * @var Escaper $escaper
+ */
+?>
+<?php try {
+    if ($relatedProducts = $block->getRelatedProducts()): ?>
+        <?php if ($relatedProducts->getSize()): ?>
+            <div class="related-products">
+                <h2><?= $escaper->escapeHtml(__('Related Products')) ?></h2>
+                <hr>
+                <ul class="products-grid">
+                    <?php foreach ($relatedProducts as $product): ?>
+                        <li class="product-item">
+                            <a href="<?= $escaper->escapeUrl($block->getProductUrls($product)) ?>">
+                                <img src="<?= $escaper->escapeUrl($block->getProductImageUrl($product)) ?>"
+                                     alt="<?= $escaper->escapeHtml($block->getProductName($product)) ?>"/>
+                                <h3><?= $escaper->escapeHtml($block->getProductName($product)) ?></h3>
+                            </a>
+                            <div class="product-reviews">
+                                <?= $block->getReviewsSummaryHtml($product, 'short', true) ?>
+                            </div>
+                            <p class="product-price">
+                                <?= $block->getPrice($product) ?>
+                            </p>
+                            <div class="add-to-cart-related">
+                                <button type="button" class="action-related"
+                                        onclick="location.href='<?= $escaper->escapeUrl($block->addToCartUrl($product)) ?>'">
+                                    <?= $escaper->escapeHtml(__('Add to Cart')) ?>
+                                </button>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+    <?php endif;
+} catch (NoSuchEntityException $e) {
+
+} ?>

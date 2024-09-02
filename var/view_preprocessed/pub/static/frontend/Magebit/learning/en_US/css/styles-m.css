@@ -14394,20 +14394,19 @@ button.braintree-googlepay-button.black.long {
   align-items: center;
   margin-bottom: 5px;
 }
-.rating-upsell .stars-upsell {
+.rating-upsell .rating-result {
   color: #FF5501;
   font-size: 12px;
 }
-.rating-upsell .review-count-upsell {
+.rating-upsell .reviews-actions {
   margin-left: 5px;
   font-size: 12px;
   text-decoration: underline;
   color: #FF5501;
 }
-.product-price-upsell {
+.upsell-products .product-price-upsell .price {
   font-size: 18px;
   color: #333;
-  margin: 5px 0;
   font-weight: bold;
 }
 .view-product-upsell {
@@ -14542,6 +14541,9 @@ button.braintree-googlepay-button.black.long {
   white-space: nowrap;
   font-size: 24px;
   color: #333;
+}
+.qty-container {
+  margin-top: -80px;
 }
 @media only screen and (max-width: 769px) {
   .field-tooltip .field-tooltip-content {
