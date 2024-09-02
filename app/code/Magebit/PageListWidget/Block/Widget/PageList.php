@@ -73,6 +73,7 @@ class PageList extends Template implements BlockInterface
 
         return $collection->getItems();
     }
+
     /**
      * This method returns an array of all active CMS pages
      *
