@@ -1,0 +1,56 @@
+<?php
+/**
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
+ */
+
+declare(strict_types=1);
+use Magebit\Learning\Block\Product\View\Upsell;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Escaper;
+
+/**
+ * Template for displaying upsell products.
+ * @var Upsell $block
+ * @var Escaper $escaper
+ */
+?>
+
+<?php try {
+    if ($upsellProducts = $block->getUpsellProducts()): ?>
+        <?php if ($upsellProducts->getSize()): ?>
+            <div class="upsell-products">
+                <h2 class="upsell-title"><?= $escaper->escapeHtml(__('We found other products you may like!')) ?></h2>
+                <hr class="upsell-hr">
+                <ul class="products-grid-upsell">
+                    <?php foreach ($upsellProducts as $product): ?>
+                        <li class="product-item-upsell">
+                            <a href="<?= $escaper->escapeUrl($block->getProductUrls($product)) ?>">
+                                <img src="<?= $escaper->escapeUrl($block->getProductImageUrl($product)) ?>"
+                                     alt="<?= $escaper->escapeHtml($block->getProductName($product)) ?>"
+                                     class="product-image-upsell">
+                            </a>
+                            <div class="product-details-upsell">
+                                <h3><?= $block->getProductName($product) ?></h3>
+                                <div class="product-reviews-upsell">
+                                    <?= $block->getProductReviewsHtml($product) ?>
+                                </div>
+                                <div class="product-price-upsell">
+                                    <?= $block->getPrice($product) ?>
+                                </div>
+                            </div>
+                            <div class="view-product-upsell">
+                                <a href="<?= $escaper->escapeUrl($block->getProductUrls($product)) ?>"
+                                   class="action-upsell">
+                                    <?= $escaper->escapeHtml(__('View Product')) ?>
+                                </a>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+    <?php endif;
+} catch (NoSuchEntityException $e) {
+} ?>

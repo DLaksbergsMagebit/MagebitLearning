@@ -1,25 +1,41 @@
 <?xml version="1.0"?>
-<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-
+<!--
+/**
+* @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+* @author    Magebit <info@magebit.com>
+* @license   MIT
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <move element="product.info.main" destination="content" before="-"/>
-
-        <!-- Remove unwanted blocks from the product page -->
         <referenceBlock name="view.addto.compare" remove="true" />
         <referenceBlock name="view.addto.wishlist" remove="true" />
         <referenceBlock name="product.info.detailed" remove="true" />
-
-        <!-- Add a custom block after the price block within product info -->
+        <referenceBlock name="product.info.addtocart" remove="true" />
+        <referenceBlock name="product.add.form" remove="true" />
+        <referenceBlock name="product.attribute.overview" remove="true" />
+        <referenceBlock name="product.social.links" remove="true" />
         <referenceContainer name="product.info.main">
-            <block class="Magento\Catalog\Block\Product\View\Attributes"
+            <block class="Magebit\Learning\Block\Product\View\AddToCart"
+                   name="product.info.add"
+                   template="Magento_Catalog::product/view/addtocart.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.main">
+            <block class="Magebit\Learning\Block\Product\View\Upsell"
+                   name="product.info.upsell"
+                   template="Magento_Catalog::product/view/upsell.phtml"
+                   after="product.info.add"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.main">
+            <block class="Magebit\Learning\Block\Product\View\Attributes"
                    name="custom.product.details"
                    template="Magento_Catalog::product/view/attributes.phtml"
                    after="product.info.price"/>
         </referenceContainer>
-
-        <!-- Add related products block to the content area -->
         <referenceContainer name="content">
-            <block class="Magento\Catalog\Block\Product\ProductList\Related"
+            <block class="Magebit\Learning\Block\Product\View\RelatedProducts"
                    name="catalog.product.related"
                    template="Magento_Catalog::product/view/relatedproducts.phtml"/>
         </referenceContainer>

@@ -1,37 +1,39 @@
 <?xml version="1.0"?>
+<!--
+/**
+* @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+* @author    Magebit <info@magebit.com>
+* @license   MIT
+*/
+-->
 <widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
-
     <widget class="Magebit\PageListWidget\Block\Widget\PageList" id="mage_mastery_page_list_widget">
-        <label translate="true">CMS Page List</label>
-        <description translate="true">Widget to display CMS Pages</description>
+        <label>CMS Page List</label>
+        <description>Widget to display CMS Pages</description>
         <parameters>
-
             <parameter name="title" xsi:type="text" required="false" visible="true" sort_order="10">
-                <label translate="true">Title</label>
+                <label>Title</label>
             </parameter>
-
             <!-- Display mode parameter with selectable options -->
-            <parameter name="displaymode" xsi:type="select" required="true" visible="true" sort_order="20">
-                <label translate="true">Display Mode</label>
+            <parameter name="display_mode" xsi:type="select" required="true" visible="true" sort_order="20">
+                <label>Display Mode</label>
                 <options>
-                    <option name="allpages" value="allpages">
-                        <label translate="true">All Pages</label>
+                    <option name="all_page" value="all_page">
+                        <label>All Pages</label>
                     </option>
-                    <option name="specificpages" value="specificpages">
-                        <label translate="true">Specific Pages</label>
+                    <option name="specific_page" value="specific_page">
+                        <label>Specific Pages</label>
                     </option>
                 </options>
             </parameter>
-
             <!-- Multiselect for selecting specific pages, dependent on the display mode -->
-            <parameter name="selectedpages" xsi:type="multiselect" required="false" visible="true" sort_order="30" source_model="Magento\Cms\Model\Config\Source\Page">
-                <label translate="true">Selected Pages</label>
+            <parameter name="selected_page" xsi:type="multiselect" required="false" visible="true" sort_order="30" source_model="Magento\Cms\Model\Config\Source\Page">
+                <label>Selected Pages</label>
                 <depends>
-                    <parameter name="displaymode" value="specificpages"/>
+                    <parameter name="display_mode" value="specific_page"/>
                 </depends>
             </parameter>
-
         </parameters>
     </widget>
 </widgets>
