@@ -1,0 +1,6 @@
+<?php foreach ($block->getFaqs() as $faq): ?>
+    <div class="faq-item">
+        <div class="faq-question"><?= $faq->getQuestion(); ?></div>
+        <div class="faq-answer"><?= $faq->getAnswer(); ?></div>
+    </div>
+<?php endforeach; ?>
