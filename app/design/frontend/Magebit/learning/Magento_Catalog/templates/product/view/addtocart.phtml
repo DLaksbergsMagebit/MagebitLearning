@@ -15,6 +15,7 @@ use Magento\Framework\Escaper;
  * @var AddToCart $block
  * @var Escaper $escaper
  */
+
 $qty = $block->getProductQty();
 $isInStock = $block->isProductInStock();
 ?>
@@ -23,14 +24,16 @@ $isInStock = $block->isProductInStock();
         <div class="qty-counter">
             <button type="button" class="btn-decrease"
                     data-bind="click: decrease"><?= $escaper->escapeHtml(__('--'))?></button>
-            <input type="text" data-bind="value: qty, valueUpdate: 'input', event: { change: validateQty }" />
+            <label>
+                <input type="text" data-bind="value: qty, valueUpdate: 'input', event: { change: validateQty }" />
+            </label>
             <button type="button" class="btn-increase"
                     data-bind="click: increase"><?= $escaper->escapeHtml(__('+'))?></button>
         </div>
         <div class="stock-info">
             <span class="stock-icon">
-                <img src="<?= $block->getViewFileUrl('Magento_Catalog::images/in_stock.svg') ?>"
-                     alt="<?= __('In Stock Icon') ?>" width="11" height="8.005" />
+                <img src="<?= $escaper->escapeUrl($block->getViewFileUrl('Magento_Catalog::images/in_stock.svg')) ?>"
+                     alt="<?= $escaper->escapeHtml(__('In Stock Icon')) ?>" width="11" height="8.005" />
             </span>
             <p>
                 <strong class="in-stock-text">
@@ -44,7 +47,7 @@ $isInStock = $block->isProductInStock();
     </div>
 </div>
 <div class="add-to-cart">
-    <button type="button" class="action primary" onclick="location.href='<?= $block->getAddToCartUrl($block->getProduct()) ?>'">
+    <button type="button" class="action primary" onclick="location.href='<?= $escaper->escapeUrl($block->getAddToCartUrl($block->getProduct())) ?>'">
         <?=$escaper->escapeHtml(__('Add to Cart')) ?>
     </button>
 </div>

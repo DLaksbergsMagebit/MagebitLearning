@@ -78,16 +78,20 @@ class Upsell extends ProductView
      * Get upsell products collection
      *
      * @return Collection|null
-     * @throws NoSuchEntityException
      */
     public function getUpsellProducts(): ?Collection
     {
         $product = $this->getProduct();
-        return $product?->getUpSellProductCollection()
-            ->addAttributeToSelect('*')
-            ->addAttributeToFilter('status', 1)
-            ->addStoreFilter($this->_storeManager->getStore()->getId())
-            ->setPageSize(4); // Limit the number of upsell products
+        try {
+            return $product?->getUpSellProductCollection()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('status', 1)
+                ->addStoreFilter($this->_storeManager->getStore()->getId())
+                ->setPageSize(4);
+        }catch (NoSuchEntityException $e){
+            return null;
+        }
+
     }
 
     /**

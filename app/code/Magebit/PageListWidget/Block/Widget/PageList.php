@@ -30,7 +30,7 @@ class PageList extends Template implements BlockInterface
      * @param array $data
      */
     public function __construct(
-        Template\Context $context,
+        private readonly Template\Context $context,
         private readonly PageCollectionFactory $pageCollectionFactory,
         array $data = []
     ) {
@@ -52,6 +52,7 @@ class PageList extends Template implements BlockInterface
 
         return $this->getAllPages();
     }
+
     /**
      * Retrieve specific CMS pages.
      *
@@ -60,9 +61,8 @@ class PageList extends Template implements BlockInterface
     private function getSpecificPages(): array
     {
         $selectedPagesValue = $this->getData('selected_page');
-
-        // Convert the selected pages into an array, trim values, and filter out empty ones
-        $selectedPagesArray = array_filter(array_map('trim', is_array($selectedPagesValue) ? $selectedPagesValue : explode(',', $selectedPagesValue)));
+        $selectedPages= is_array($selectedPagesValue) ? $selectedPagesValue : explode(',', $selectedPagesValue);
+        $selectedPagesArray= array_filter(array_map('trim', $selectedPages));
 
 
         $collection = $this->pageCollectionFactory->create()

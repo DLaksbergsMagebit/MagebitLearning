@@ -63,16 +63,19 @@ class Attributes extends BaseAttributes
     /**
      * Get the product short description
      *
-     * @return string
-     * @throws LocalizedException
+     * @return string|null
      */
-    public function getShortDescription(): string
+    public function getShortDescription(): ?string
     {
         $product = $this->getProduct();
+        try {
         return $this->catalogHelper->productAttribute(
             $product,
             $product->getData('short_description'),
-            'short_description'
-        );
+            'short_description');
+        }catch (LocalizedException $e) {
+            return null;
+        }
+
     }
 }

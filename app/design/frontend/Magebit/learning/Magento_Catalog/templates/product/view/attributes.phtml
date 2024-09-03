@@ -6,19 +6,21 @@
  */
 
 declare(strict_types=1);
+
 use Magebit\Learning\Block\Product\View\Attributes;
 use Magento\Framework\Escaper;
-use Magento\Framework\Exception\LocalizedException;
 
 /**
  * Template for displaying selected product attributes and short description.
  * @var Attributes $block
  * @var Escaper $escaper
  */
+
+$attributes = $block->getDisplayAttributes();
+$shortDescription = $block->getShortDescription();
 ?>
 
 <div class="product-details">
-    <?php $attributes = $block->getDisplayAttributes(); ?>
     <?php if (!empty($attributes)): ?>
         <?php foreach ($attributes as $attribute): ?>
             <div class="detail-item">
@@ -32,13 +34,9 @@ use Magento\Framework\Exception\LocalizedException;
         <p><?= $escaper->escapeHtml(__('No additional product information available.')) ?></p>
     <?php endif; ?>
 
-    <?php try {
-        if ($block->getShortDescription()): ?>
+    <?php if ($shortDescription): ?>
             <div class="short_description">
-                <p><?= $block->getShortDescription() ?></p>
+                <p><?= /** @noEscape */ $shortDescription ?></p>
             </div>
-        <?php endif;
-    } catch (LocalizedException $e) {
-
-    } ?>
+        <?php endif; ?>
 </div>
