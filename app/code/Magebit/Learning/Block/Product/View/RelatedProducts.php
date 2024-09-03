@@ -78,16 +78,19 @@ class RelatedProducts extends ProductView
      * Get related products collection
      *
      * @return Collection|null
-     * @throws NoSuchEntityException
      */
     public function getRelatedProducts(): ?Collection
     {
         $product = $this->getProduct();
-        return $product?->getRelatedProductCollection()
-            ->addAttributeToSelect('*')
-            ->addAttributeToFilter('status', 1)
-            ->addStoreFilter($this->_storeManager->getStore()->getId())
-            ->setPageSize(5);
+        try {
+            return $product?->getRelatedProductCollection()
+                ->addAttributeToSelect('*')
+                ->addAttributeToFilter('status', 1)
+                ->addStoreFilter($this->_storeManager->getStore()->getId())
+                ->setPageSize(5);
+        }catch (NoSuchEntityException $e){
+            return null;
+        }
     }
 
     /**
