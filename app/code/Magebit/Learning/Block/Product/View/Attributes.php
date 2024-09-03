@@ -69,7 +69,7 @@ class Attributes extends BaseAttributes
     {
         $product = $this->getProduct();
         try {
-        return $this->catalogHelper->productAttribute(
+            return $this->catalogHelper->productAttribute(
             $product,
             $product->getData('short_description'),
             'short_description');

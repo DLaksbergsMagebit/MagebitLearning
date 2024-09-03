@@ -13,6 +13,7 @@ use Magento\Cms\Model\ResourceModel\Page\CollectionFactory as PageCollectionFact
 use Magento\Cms\Model\Page;
 use Magento\Framework\View\Element\Template;
 use Magento\Widget\Block\BlockInterface;
+use Magento\Framework\View\Element\Template\Context;
 
 /**
  * This class is a widget block that retrieves and displays a list of CMS pages.
@@ -25,16 +26,16 @@ class PageList extends Template implements BlockInterface
     protected $_template = "widget/page_list.phtml";
 
     /**
-     * @param Template\Context $context
+     * @param Context $context
      * @param PageCollectionFactory $pageCollectionFactory
      * @param array $data
      */
     public function __construct(
-        private readonly Template\Context $context,
+        private readonly Context $context,
         private readonly PageCollectionFactory $pageCollectionFactory,
         array $data = []
     ) {
-        parent::__construct($context, $data);
+        parent::__construct($this->context, $data);
     }
 
     /**
