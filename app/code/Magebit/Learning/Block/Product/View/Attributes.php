@@ -61,7 +61,7 @@ class Attributes extends BaseAttributes
     }
 
     /**
-     * Get the product short description
+     * Get the products short description
      *
      * @return string|null
      */

@@ -39,7 +39,7 @@ class PageList extends Template implements BlockInterface
     }
 
     /**
-     * Retrieve CMS pages based on the display mode.
+     * Retrieves CMS pages based on the display mode.
      *
      * @return Page[] Array of CMS page models.
      */
