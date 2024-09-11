@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 /**
 * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
@@ -8,9 +8,9 @@
 -->
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-<body>
-    <referenceContainer name="content">
-        <block class="Magebit\Faq\Block\QuestionList" name="question.list" template="Magebit_Faq::question_list.phtml"/>
-    </referenceContainer>
-</body>
+    <body>
+        <referenceContainer name="content">
+            <uiComponent name="magebit_faq_form"/>
+        </referenceContainer>
+    </body>
 </page>

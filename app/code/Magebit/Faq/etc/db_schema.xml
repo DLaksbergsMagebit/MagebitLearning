@@ -6,14 +6,16 @@
 * @license   MIT
 */
 -->
-<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
     <table name="magebit_faq" resource="default" engine="innodb" comment="FAQ Table">
         <column name="id" xsi:type="int" nullable="false" identity="true" unsigned="true" comment="ID"/>
         <column name="question" xsi:type="text" nullable="false" comment="Question"/>
         <column name="answer" xsi:type="text" nullable="false" comment="Answer"/>
         <column name="status" xsi:type="smallint" nullable="false" default="0" comment="Status"/>
         <column name="position" xsi:type="int" nullable="false" default="0" comment="Position"/>
-        <column name="updated_at" xsi:type="timestamp" nullable="false" on_update="true" default="CURRENT_TIMESTAMP" comment="Last Updated"/>
+        <column name="updated_at" xsi:type="timestamp" nullable="false" on_update="true"
+                default="CURRENT_TIMESTAMP" comment="Last Updated"/>
         <constraint xsi:type="primary" referenceId="PRIMARY">
             <column name="id"/>
         </constraint>

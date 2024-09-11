@@ -1,0 +1,32 @@
+<?php
+/**
+ * @copyright Copyright (c) 2024 Magebit, Ltd. (https://magebit.com/)
+ * @author    Magebit <info@magebit.com>
+ * @license   MIT
+ */
+
+declare(strict_types=1);
+
+use Magebit\Faq\Block\QuestionList;
+/**
+ * @var QuestionList $block
+ */
+$questions = $block->getQuestions();
+$accordionData='{'.
+    '"accordion":{"openedState":"active","collapsible":true, "active": false, "multipleCollapsible": true}'.
+    '}';
+?>
+
+<div
+    id="element"
+    data-mage-init='<?=$accordionData?>'
+    class="question table">
+    <?php foreach ($questions as $question): ?>
+        <div data-role="collapsible">
+            <div data-role="trigger" class="question title">
+                <span><?=$question->getQuestion()?></span>
+            </div>
+        </div>
+        <div data-role="content" class="question"><?= $question->getAnswer() ?></div>
+    <?php endforeach; ?>
+</div>
