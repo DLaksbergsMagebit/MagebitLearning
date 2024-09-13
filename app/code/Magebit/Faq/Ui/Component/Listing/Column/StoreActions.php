@@ -27,11 +27,6 @@ class StoreActions extends Column
     const ID_FIELD = 'id';
 
     /**
-     * @var UrlInterface
-     */
-    protected $_urlInterface;
-
-    /**
      * @param ContextInterface $context
      * @param UiComponentFactory $uiComponentFactory
      * @param UrlInterface $urlInterface
@@ -39,12 +34,13 @@ class StoreActions extends Column
      * @param array $data
      */
     public function __construct(
-        ContextInterface $context,
-        UiComponentFactory $uiComponentFactory,
-        UrlInterface $urlInterface,
-        array $components = [],
-        array $data = []
-    ) {
+        protected                     $context,
+        UiComponentFactory            $uiComponentFactory,
+        private readonly UrlInterface $urlInterface,
+        protected                     $components = [],
+        private readonly array        $data = []
+    )
+    {
         parent::__construct($context, $uiComponentFactory, $components, $data);
         $this->_urlInterface = $urlInterface;
     }
@@ -73,7 +69,7 @@ class StoreActions extends Column
                             [self::ID_FIELD => $item[self::ID_FIELD]]),
                         'label' => __('Delete'),
                         'confirm' => [
-                            'title' => __('Delete question '.$item[self::ID_FIELD]),
+                            'title' => __('Delete question ' . $item[self::ID_FIELD]),
                             'message' => __('Are you sure?')
                         ]
                     ];

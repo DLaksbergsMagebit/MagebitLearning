@@ -9,8 +9,11 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
+use Exception;
 use Magebit\Faq\Controller\Adminhtml\QuestionController;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Controller\ResultInterface;
+
 
 /**
  * Class Save controller to handle saving FAQ questions in the admin panel.
@@ -20,8 +23,10 @@ class Save extends QuestionController
 {
     /**
      * Execute the action to save a FAQ question.
+     *
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute():ResultInterface
     {
         $params = $this->getRequest()->getParams();
         $question = $this->questionFactory->create()->setData($params);
@@ -38,9 +43,10 @@ class Save extends QuestionController
 
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('An error occurred while saving the question.'));
         }
+
         return $this->resultRedirectFactory->create()->setPath('magebit_faq/question/edit', [self::ID_PARAM => $question->getId()]);
     }
 }

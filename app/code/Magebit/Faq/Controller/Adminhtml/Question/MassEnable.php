@@ -9,7 +9,9 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
+use Exception;
 use Magebit\Faq\Controller\Adminhtml\QuestionController;
+use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
 
 /**
@@ -21,8 +23,10 @@ class MassEnable extends QuestionController
 {
     /**
      * Execute the action for mass enabling of FAQ questions.
+     *
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute():ResultInterface
     {
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
@@ -36,10 +40,11 @@ class MassEnable extends QuestionController
             }
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('There was an error while attempting to enable the question(s).'));
         }
         $resultRedirect = $this->resultRedirectFactory->create();
+
         return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
     }
 }

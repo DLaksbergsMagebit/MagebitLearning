@@ -5,12 +5,8 @@
  * @license   MIT
  */
 
-declare(strict_types=1);
 
 namespace Magebit\Faq\Api;
-
-use Magento\Framework\Exception\CouldNotSaveException;
-use Magento\Framework\Exception\NoSuchEntityException;
 
 interface QuestionManagementInterface
 {
@@ -19,8 +15,6 @@ interface QuestionManagementInterface
      *
      * @param int $id
      * @return bool
-     * @throws NoSuchEntityException
-     * @throws CouldNotSaveException
      */
     public function enableQuestion(int $id): bool;
 
@@ -29,8 +23,6 @@ interface QuestionManagementInterface
      *
      * @param int $id
      * @return bool
-     * @throws NoSuchEntityException
-     * @throws CouldNotSaveException
      */
     public function disableQuestion(int $id): bool;
 }

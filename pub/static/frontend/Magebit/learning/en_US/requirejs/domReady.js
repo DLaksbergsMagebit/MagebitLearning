@@ -1,1 +1,0 @@
-/var/www/magento/public/lib/web/requirejs/domReady.js

@@ -9,6 +9,7 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Model;
 
+use Exception;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SearchResultsInterface;
 use Magento\Framework\Api\SearchResultsInterfaceFactory;
@@ -20,31 +21,10 @@ use Magebit\Faq\Api\QuestionRepositoryInterface;
 use Magebit\Faq\Api\Data\QuestionInterface;
 use Magebit\Faq\Model\ResourceModel\Question as ObjectResourceModel;
 use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
+use RuntimeException;
 
-class QuestionRepository implements QuestionRepositoryInterface
+readonly class QuestionRepository implements QuestionRepositoryInterface
 {
-    /**
-     * @var QuestionFactory
-     */
-    protected QuestionFactory $objectFactory;
-
-    /**
-     * @var ObjectResourceModel
-     */
-    protected ObjectResourceModel $objectResourceModel;
-
-    /**
-     * @var CollectionFactory
-     */
-    protected CollectionFactory $collectionFactory;
-
-    /**
-     * @var SearchResultsInterfaceFactory
-     */
-    protected SearchResultsInterfaceFactory $searchResultsFactory;
-
-    protected CollectionProcessor $collectionProcessor;
-
     /**
      * @param QuestionFactory $objectFactory
      * @param ObjectResourceModel $objectResourceModel
@@ -53,17 +33,12 @@ class QuestionRepository implements QuestionRepositoryInterface
      * @param CollectionProcessor $collectionProcessor
      */
     public function __construct(
-        QuestionFactory $objectFactory,
-        ObjectResourceModel $objectResourceModel,
-        CollectionFactory $collectionFactory,
-        SearchResultsInterfaceFactory $searchResultsFactory,
-        CollectionProcessor $collectionProcessor
+        private QuestionFactory               $objectFactory,
+        private ObjectResourceModel           $objectResourceModel,
+        private CollectionFactory             $collectionFactory,
+        private SearchResultsInterfaceFactory $searchResultsFactory,
+        private CollectionProcessor           $collectionProcessor
     ) {
-        $this->objectFactory = $objectFactory;
-        $this->objectResourceModel = $objectResourceModel;
-        $this->collectionFactory = $collectionFactory;
-        $this->searchResultsFactory = $searchResultsFactory;
-        $this->collectionProcessor = $collectionProcessor;
     }
 
     /**
@@ -73,14 +48,20 @@ class QuestionRepository implements QuestionRepositoryInterface
      * @return QuestionInterface
      * @throws NoSuchEntityException
      */
-    public function get( $id): QuestionInterface
+    public function get(int $id): QuestionInterface
     {
-        $object = $this->objectFactory->create();
-        $this->objectResourceModel->load($object, $id);
-        if (!$object->getId()) {
-            throw new NoSuchEntityException(__('Object with id "%1" does not exist.', $id));
+        try {
+            $object = $this->objectFactory->create();
+            $this->objectResourceModel->load($object, $id);
+
+            if (!$object->getId()) {
+                throw new NoSuchEntityException(__('Object with id "%1" does not exist.', $id));
+            }
+
+            return $object;
+        } catch (Exception $e) {
+            throw new NoSuchEntityException(__('Unable to load the question. Error: %1', $e->getMessage()));
         }
-        return $object;
     }
 
     /**
@@ -94,14 +75,19 @@ class QuestionRepository implements QuestionRepositoryInterface
     {
         try {
             $this->objectResourceModel->save($question);
-
-        } catch (\Exception $e)
-        {
-            throw new CouldNotSaveException(__('Cannot save the question'));
+        } catch (Exception $e) {
+            throw new CouldNotSaveException(__('Cannot save the question. Error: %1', $e->getMessage()));
         }
+
         return $question;
     }
 
+    /**
+     * Retrieve a list of questions based on search criteria.
+     *
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return SearchResultsInterface
+     */
     /**
      * Retrieve a list of questions based on search criteria.
      *
@@ -113,9 +99,10 @@ class QuestionRepository implements QuestionRepositoryInterface
         $collection = $this->collectionFactory->create();
         $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResults = $this->searchResultsFactory->create();
-        $searchResults->setSearchCriteria($searchCriteria);
-        $searchResults->setItems($collection->getItems());
-        $searchResults->setTotalCount($collection->getItems());
+        $searchResults->setSearchCriteria($searchCriteria)
+            ->setItems($collection->getItems())
+            ->setTotalCount((int)$collection->getItems());
+
         return $searchResults;
     }
 
@@ -130,10 +117,11 @@ class QuestionRepository implements QuestionRepositoryInterface
     {
         try {
             $this->objectResourceModel->delete($question);
-        } catch (\Exception $exception) {
-            throw new CouldNotDeleteException(__('Cannot delete the question'));
+
+            return true;
+        } catch (Exception $e) {
+            throw new CouldNotDeleteException(__('Cannot delete the question. Error: %1', $e->getMessage()));
         }
-        return true;
     }
 
     /**
@@ -141,11 +129,16 @@ class QuestionRepository implements QuestionRepositoryInterface
      *
      * @param int $id Question ID.
      * @return bool True if the question was successfully deleted.
-     * @throws NoSuchEntityException If the question does not exist.
      * @throws CouldNotDeleteException If the question could not be deleted.
      */
-    public function deleteById( $id): bool
+    public function deleteById(int $id): bool
     {
-        return $this->delete($this->get($id));
+        try {
+            $question = $this->get($id);
+
+            return $this->delete($question);
+        } catch (Exception $e) {
+            throw new CouldNotDeleteException(__('Cannot delete the question by ID. Error: %1', $e->getMessage()));
+        }
     }
 }

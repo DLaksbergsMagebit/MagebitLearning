@@ -16,8 +16,6 @@ use Magebit\Faq\Model\ResourceModel\Question\CollectionFactory;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\Result\JsonFactory;
-use Magento\Framework\Controller\ResultInterface;
-use Magento\Framework\View\Result\Page;
 use Magento\Framework\View\Result\PageFactory;
 use Magento\Ui\Component\MassAction\Filter;
 
@@ -29,48 +27,30 @@ use Magento\Ui\Component\MassAction\Filter;
 abstract class QuestionController extends Action
 {
     /**
-     * @var string
+     * ACL resource string used to check if the user has permission to access content elements in the admin.
      */
-    const string ADMIN_RESOURCE = 'Magento_Backend::content_elements';
-    const string ACTIVE_MENU = 'Magebit_Faq::faq';
-    const string BREADCRUMB_PARENT = 'Frequently Asked Questions';
-    const string PAGE_TITLE = 'FAQ Question';
-    const string ID_PARAM = 'id';
+    const ADMIN_RESOURCE = 'Magento_Backend::content_elements';
 
     /**
-     * @var PageFactory
+     * Identifier for the active menu item in the admin panel's navigation.
      */
-    protected PageFactory $resultPageFactory;
+    const ACTIVE_MENU = 'Magebit_Faq::faq';
 
     /**
-     * @var QuestionRepository
+     * Label for the parent breadcrumb used for navigation in the FAQ admin panel.
      */
-    protected QuestionRepository $questionRepository;
+    const BREADCRUMB_PARENT = 'Frequently Asked Questions';
 
     /**
-     * @var QuestionFactory
+     * Title used for displaying the page title in the FAQ question section in the admin panel.
      */
-    protected QuestionFactory $questionFactory;
+    const PAGE_TITLE = 'FAQ Question';
 
     /**
-     * @var JsonFactory
+     * URL parameter key for the FAQ question's ID used in the request.
      */
-    protected JsonFactory $jsonFactory;
+    const ID_PARAM = 'id';
 
-    /**
-     * @var Filter
-     */
-    protected Filter $filter;
-
-    /**
-     * @var CollectionFactory
-     */
-    protected CollectionFactory $collectionFactory;
-
-    /**
-     * @var QuestionManager
-     */
-    protected QuestionManager $questionManager;
 
     /**
      * @param Context $context
@@ -83,22 +63,15 @@ abstract class QuestionController extends Action
      * @param QuestionManager $questionManager
      */
     public function __construct(
-        Context $context,
-        PageFactory $resultPageFactory,
-        QuestionRepository $questionRepository,
-        QuestionFactory $questionFactory,
-        JsonFactory $jsonFactory,
-        Filter $filter,
-        CollectionFactory $collectionFactory,
-        QuestionManager $questionManager
+        private readonly Context              $context,
+        protected readonly PageFactory        $resultPageFactory,
+        protected readonly QuestionRepository $questionRepository,
+        protected readonly QuestionFactory    $questionFactory,
+        protected readonly JsonFactory        $jsonFactory,
+        protected readonly Filter             $filter,
+        protected readonly CollectionFactory  $collectionFactory,
+        protected readonly QuestionManager    $questionManager
     ) {
-        $this->resultPageFactory = $resultPageFactory;
-        $this->questionRepository = $questionRepository;
-        $this->questionFactory = $questionFactory;
-        $this->jsonFactory = $jsonFactory;
-        $this->filter = $filter;
-        $this->collectionFactory = $collectionFactory;
-        $this->questionManager = $questionManager;
         parent::__construct($context);
     }
 

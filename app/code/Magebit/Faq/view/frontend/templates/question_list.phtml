@@ -7,26 +7,35 @@
 
 declare(strict_types=1);
 
+
 use Magebit\Faq\Block\QuestionList;
+use Magento\Framework\Escaper;
+
 /**
  * @var QuestionList $block
+ * @var Escaper $escaper
  */
 $questions = $block->getQuestions();
-$accordionData='{'.
-    '"accordion":{"openedState":"active","collapsible":true, "active": false, "multipleCollapsible": true}'.
-    '}';
 ?>
 
 <div
     id="element"
-    data-mage-init='<?=$accordionData?>'
+    data-mage-init='{
+        "accordion": {
+            "openedState": "active",
+            "collapsible": true,
+            "active": false,
+            "multipleCollapsible": true
+        }
+    }'
     class="question table">
     <?php foreach ($questions as $question): ?>
         <div data-role="collapsible">
             <div data-role="trigger" class="question title">
-                <span><?=$question->getQuestion()?></span>
+                <span><?= $escaper->escapeHtml($question->getQuestion()) ?></span>
             </div>
         </div>
-        <div data-role="content" class="question"><?= $question->getAnswer() ?></div>
+        <div data-role="content" class="question"><?= $escaper->escapeHtml($question->getAnswer()) ?></div>
     <?php endforeach; ?>
 </div>
+

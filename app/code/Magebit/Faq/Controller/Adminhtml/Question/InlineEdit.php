@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
 use Magebit\Faq\Controller\Adminhtml\QuestionController as QuestionController;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 
@@ -22,8 +23,10 @@ class InlineEdit extends QuestionController
 {
     /**
      * Execute the action for inline editing of FAQ questions.
+     *
+     * @return Json
      */
-    public function execute()
+    public function execute(): Json
     {
         $resultJson = $this->jsonFactory->create();
         $error = false;
@@ -49,6 +52,7 @@ class InlineEdit extends QuestionController
                 }
             }
         }
+
         return $resultJson->setData([
             'messages' => $messages,
             'error'    => $error

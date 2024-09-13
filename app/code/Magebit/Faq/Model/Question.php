@@ -19,7 +19,7 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
     /**
      * @var string
      */
-    const string CACHE_TAG = 'magebit_faq';
+    private const CACHE_TAG = 'magebit_faq';
 
     /**
      * @var string
@@ -53,8 +53,7 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
      */
     public function getId(): ?int
     {
-        return $this->getData(self::ID) === null ? null
-            : (int)$this->getData(self::ID);
+        return (int)$this->getData(self::ID);
     }
 
     /**
@@ -64,21 +63,18 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
      */
     public function getQuestion(): ?string
     {
-        return $this->getData(self::QUESTION) === null ? null
-            : (string)$this->getData(self::QUESTION);
+        return $this->getData(self::QUESTION);
     }
 
     /**
      * Setter for Question.
      *
      * @param string|null $question
-     *
-     * @return self
+     * @return void
      */
-    public function setQuestion(?string $question): self
+    public function setQuestion(?string $question): void
     {
         $this->setData(self::QUESTION, $question);
-        return $this;
     }
 
     /**
@@ -88,21 +84,18 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
      */
     public function getAnswer(): ?string
     {
-        return $this->getData(self::ANSWER) === null ? null
-            : (string)$this->getData(self::ANSWER);
+        return $this->getData(self::ANSWER);
     }
 
     /**
      * Setter for Answer.
      *
      * @param string|null $answer
-     *
-     * @return self
+     * @return void
      */
-    public function setAnswer(?string $answer): self
+    public function setAnswer(?string $answer): void
     {
         $this->setData(self::ANSWER, $answer);
-        return $this;
     }
 
     /**
@@ -112,21 +105,18 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
      */
     public function getStatus(): ?int
     {
-        return $this->getData(self::STATUS) === null ? null
-            : (int)$this->getData(self::STATUS);
+        return $this->getData(self::STATUS);
     }
 
     /**
      * Setter for Status.
      *
      * @param int|null $status
-     *
-     * @return self
+     * @return void
      */
-    public function setStatus(?int $status): self
+    public function setStatus(?int $status): void
     {
         $this->setData(self::STATUS, $status);
-        return $this;
     }
 
     /**
@@ -136,21 +126,18 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
      */
     public function getPosition(): ?int
     {
-        return $this->getData(self::POSITION) === null ? null
-            : (int)$this->getData(self::POSITION);
+        return $this->getData(self::POSITION);
     }
 
     /**
      * Setter for Position.
      *
      * @param int|null $position
-     *
-     * @return self
+     * @return void
      */
-    public function setPosition(?int $position): self
+    public function setPosition(?int $position): void
     {
         $this->setData(self::POSITION, $position);
-        return $this;
     }
 
     /**
@@ -160,7 +147,6 @@ class Question extends AbstractModel implements QuestionInterface, IdentityInter
      */
     public function getUpdatedAt(): ?string
     {
-        return $this->getData(self::UPDATED_AT) === null ? null
-            : (string)$this->getData(self::UPDATED_AT);
+        return $this->getData(self::UPDATED_AT);
     }
 }

@@ -10,6 +10,7 @@ declare(strict_types=1);
 namespace Magebit\Faq\Ui\Component\Listing\Column;
 
 use Magento\Framework\Data\OptionSourceInterface;
+
 /**
 * Class Status changes 1 and 0 to enabled and disabled
  *

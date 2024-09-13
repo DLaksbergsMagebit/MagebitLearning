@@ -9,8 +9,10 @@ declare(strict_types=1);
 
 namespace Magebit\Faq\Controller\Adminhtml\Question;
 
+use Magento\Framework\Controller\ResultInterface;
 use Magebit\Faq\Controller\Adminhtml\QuestionController;
 use Magento\Framework\Exception\LocalizedException;
+use Exception;
 
 /**
  * Class MassDelete controller to handle the mass deletion of FAQ questions in the admin panel.
@@ -21,8 +23,10 @@ class MassDelete extends QuestionController
 {
     /**
      * Execute the action for mass deletion of FAQ questions.
+     *
+     * @return ResultInterface
      */
-    public function execute()
+    public function execute():ResultInterface
     {
         try {
             $collection = $this->filter->getCollection($this->collectionFactory->create());
@@ -38,10 +42,11 @@ class MassDelete extends QuestionController
             }
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('There was an error while deleting the record(s).'));
         }
         $resultRedirect = $this->resultRedirectFactory->create();
+
         return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
     }
 }

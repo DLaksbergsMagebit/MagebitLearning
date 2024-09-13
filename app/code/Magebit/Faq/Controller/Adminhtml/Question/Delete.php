@@ -40,6 +40,7 @@ class Delete extends QuestionController
         } else {
             $this->messageManager->addErrorMessage(__('We can\'t find a question to delete.'));
         }
+
         return $resultRedirect->setPath('magebit_faq/question/index');
     }
 }

@@ -18,33 +18,13 @@ use Magebit\Faq\Api\QuestionRepositoryInterface as QuestionRepository;
 use Magebit\Faq\Api\Data\QuestionInterface;
 
 /**
- * Class QuestionList block class for fetching a list of FAQ questions.
- *
- * @package Magebit\Faq\Block
+ * Block class for fetching and displaying FAQ questions.
  */
 class QuestionList extends Template
 {
     /**
-     * @var QuestionRepository
-     */
-    protected QuestionRepository $questionRepository;
-
-    /**
-     * @var SearchCriteriaBuilder
-     */
-    protected SearchCriteriaBuilder $searchCriteriaBuilder;
-
-    /**
-     * @var FilterBuilder
-     */
-    protected FilterBuilder $filterBuilder;
-
-    /**
-     * @var SortOrderBuilder
-     */
-    protected SortOrderBuilder $sortOrderBuilder;
-
-    /**
+     * Constructor.
+     *
      * @param Context $context
      * @param QuestionRepository $questionRepository
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
@@ -52,17 +32,13 @@ class QuestionList extends Template
      * @param SortOrderBuilder $sortOrderBuilder
      */
     public function __construct(
-        Context $context,
-        QuestionRepository $questionRepository,
-        SearchCriteriaBuilder $searchCriteriaBuilder,
-        FilterBuilder $filterBuilder,
-        SortOrderBuilder $sortOrderBuilder
+        private readonly Context               $context,
+        private readonly QuestionRepository    $questionRepository,
+        private readonly SearchCriteriaBuilder $searchCriteriaBuilder,
+        private readonly FilterBuilder         $filterBuilder,
+        private readonly SortOrderBuilder      $sortOrderBuilder
     ) {
-        parent::__construct($context);
-        $this->questionRepository = $questionRepository;
-        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
-        $this->filterBuilder = $filterBuilder;
-        $this->sortOrderBuilder = $sortOrderBuilder;
+        parent::__construct($this->context);
     }
 
     /**

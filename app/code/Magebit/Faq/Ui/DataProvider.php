@@ -29,14 +29,15 @@ class DataProvider extends AbstractDataProvider
      * @param array $meta
      * @param array $data
      */
-    public function  __construct(
-        string $name,
-        string $primaryFieldName,
-        string $requestFieldName,
-        CollectionFactory $collectionFactory,
-        array $meta = [],
-        array $data = []
-    ) {
+    public function __construct(
+        protected                          $name,
+        protected                          $primaryFieldName,
+        protected                          $requestFieldName,
+        private readonly CollectionFactory $collectionFactory,
+        protected                          $meta = [],
+        protected                          $data = []
+    )
+    {
         parent::__construct($name, $primaryFieldName, $requestFieldName, $meta, $data);
         $this->collection = $collectionFactory->create();
     }
@@ -52,6 +53,7 @@ class DataProvider extends AbstractDataProvider
         foreach ($this->collection->getItems() as $item) {
             $result[$item->getId()] = $item->getData();
         }
+
         return $result;
     }
 

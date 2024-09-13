@@ -22,15 +22,7 @@ use Magento\Framework\Controller\ResultInterface;
  */
 class Index extends Action
 {
-    /**
-     * @var PageFactory
-     */
-    protected PageFactory $resultPageFactory;
 
-    /**
-     * @var CollectionFactory
-     */
-    protected CollectionFactory $questionCollectionFactory;
 
     /**
      * @param Context $context
@@ -38,12 +30,10 @@ class Index extends Action
      * @param CollectionFactory $questionCollectionFactory
      */
     public function __construct(
-        Context $context,
-        PageFactory $resultPageFactory,
-        CollectionFactory $questionCollectionFactory
+        private readonly Context $context,
+        private readonly PageFactory $resultPageFactory,
+        private readonly CollectionFactory $questionCollectionFactory
     ) {
-        $this->resultPageFactory = $resultPageFactory;
-        $this->questionCollectionFactory = $questionCollectionFactory;
         parent::__construct($context);
     }
 
@@ -56,6 +46,7 @@ class Index extends Action
     {
         $resultPage = $this->resultPageFactory->create();
         $resultPage->getConfig()->getTitle()->prepend(__('Frequently Asked Questions'));
+
         return $resultPage;
     }
 }

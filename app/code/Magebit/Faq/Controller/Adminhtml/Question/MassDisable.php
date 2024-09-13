@@ -12,6 +12,7 @@ namespace Magebit\Faq\Controller\Adminhtml\Question;
 use Magebit\Faq\Controller\Adminhtml\QuestionController;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
+use Exception;
 
 /**
  * Class MassDisable controller to handle the mass disabling of FAQ questions in the admin panel.
@@ -39,10 +40,11 @@ class MassDisable extends QuestionController
             }
         } catch (LocalizedException $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
-        } catch (\Exception $e) {
+        } catch (Exception) {
             $this->messageManager->addErrorMessage(__('There was an error while attempting to disable the question(s).'));
         }
         $resultRedirect = $this->resultRedirectFactory->create();
+
         return $resultRedirect->setUrl($this->_redirect->getRefererUrl());
     }
 }

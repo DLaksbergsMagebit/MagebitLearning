@@ -35,20 +35,20 @@ class Collection extends SearchResult
      * @throws LocalizedException
      */
     public function __construct(
-        EntityFactory $entityFactory,
-        Logger $logger,
-        FetchStrategy $fetchStrategy,
-        EventManager $eventManager,
-        string $mainTable = 'magebit_faq',  // Ensure it's string-typed
-        string $resourceModel = ResourceModel::class // Ensure it's string-typed
+        private readonly EntityFactory $entityFactory,
+        private readonly Logger $logger,
+        private readonly FetchStrategy $fetchStrategy,
+        private readonly EventManager $eventManager,
+        private readonly string $mainTable = 'magebit_faq',
+        private readonly string $resourceModel = ResourceModel::class
     ) {
         parent::__construct(
             $entityFactory,
             $logger,
             $fetchStrategy,
             $eventManager,
-            $mainTable,  // Pass the table name
-            $resourceModel // Pass the resource model class name
+            $mainTable,
+            $resourceModel
         );
     }
 
@@ -60,7 +60,8 @@ class Collection extends SearchResult
     protected function _beforeLoad(): Collection
     {
         parent::_beforeLoad();
-        $this->setOrder('id', 'ASC');  // Sorting by 'id' in ascending order
+        $this->setOrder('id', 'ASC');
+
         return $this;
     }
 }
